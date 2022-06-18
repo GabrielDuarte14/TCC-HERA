@@ -27,6 +27,7 @@ export default function AtualizarDadosOpções({route}) {
 
   const opção = route.params?.opçãoAtualizar;
   const [nome, setNome] = useState('');
+
   const [dtNascimento, setDtNascimento] = useState(new Date());
   const [cpf, setCpf] = useState('');
   const [email, setEmail] = useState('');
@@ -38,7 +39,7 @@ export default function AtualizarDadosOpções({route}) {
   const [cidade, setCidade] = useState('');
   const [estado, setEstado] = useState('');
   const [complemento, setComplemento] = useState('');
-
+ 
   const [dataFinal, setDataFinal] = useState(
     'Clique aqui para selecionar a data',
   );
@@ -138,7 +139,7 @@ export default function AtualizarDadosOpções({route}) {
             telefone: telefone,
           })
           .then(() => {
-            Alert.alert('Foi!', 'Deu certo');
+            Alert.alert('Êxito!', 'Dados Atualizados com sucesso!');
             navigation.navigate('Perfil');
           })
           .catch(() => {
@@ -204,7 +205,11 @@ export default function AtualizarDadosOpções({route}) {
     setDataFinal('');
     setDataFinal(dia + '/' + mes + '/' + ano);
   }
+
+
   //dados da conta
+  //referencia input nome
+  const nomeRef = useRef();
   if (opção == 1 && nome != '') {
     return (
       <SafeAreaView style={styles.container}>
@@ -214,8 +219,14 @@ export default function AtualizarDadosOpções({route}) {
             <Text style={styles.label}>Nome</Text>
             <TextInput
               style={styles.input}
-              onChangeText={text => {
-                setNome(text);
+              ref={nomeRef}
+              onChangeText={newText => {
+                
+                if(newText == ''){
+                  nomeRef.current.value = ""
+                }else{
+                  setNome(newText)
+                }
               }}
               value={nome}
               placeholder="Nome"
@@ -257,7 +268,10 @@ export default function AtualizarDadosOpções({route}) {
             <Text style={styles.label}>Telefone</Text>
             <TextInput
               style={styles.input}
-              value={telefone}
+              onChangeText={newText => {
+                setTelefone(newText)
+              }}
+              value={telefone}       
               placeholder="Telefone"
             />
           </View>
@@ -290,9 +304,9 @@ export default function AtualizarDadosOpções({route}) {
               }}>
               <DatePicker
                 style={{
-                  marginTop: 15,
-                  marginLeft: 50,
-                  color: '#000',
+                  top: 15,
+                  alignSelf: 'center',
+                  borderColor: '#000',
                 }}
                 date={dtNascimento}
                 onDateChange={setDtNascimento}

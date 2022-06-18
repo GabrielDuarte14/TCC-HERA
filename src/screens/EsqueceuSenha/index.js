@@ -49,12 +49,12 @@ export default function App({navigation}) {
            showAlert(3)
 
         } else {
-            firebase
+           await firebase
                 .auth()
-                .sendPasswordResetEmail(email)
-                .then(function () {
+                .sendPasswordResetEmail("tccinsight@gmail.com")
+                .then(function (a) {
                     showAlert(1)
-
+                  console.log(a)
                 })
                 .catch(function (error) {
                     console.log('Erro ao enviar email' + error.toString());
