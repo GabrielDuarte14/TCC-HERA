@@ -12,21 +12,11 @@ import {
   View,
   ActivityIndicator,
 } from 'react-native';
-import AlertPro from 'react-native-alert-pro';
-import AwesomeAlert from 'react-native-awesome-alerts';
-import Parse from 'parse/react-native.js';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import firestore, {firebase} from '@react-native-firebase/firestore';
-import auth from '@react-native-firebase/auth';
+
 import {useNavigation} from '@react-navigation/native';
-import {Modalize} from 'react-native-modalize';
-import dynamicLinks from '@react-native-firebase/dynamic-links';
-import {TextInput, TouchableHighlight} from 'react-native-gesture-handler';
+
 import HeraLetra from '../../../assets/heraletra.svg';
-import Spinner from 'react-native-loading-spinner-overlay';
-import Line from '../../../assets/line.svg';
-import RNSmtpMailer from 'react-native-smtp-mailer';
-import TabNavigator from '../../components/TabNavigator';
+
 export default function App({route}) {
   const navigation = useNavigation();
   const [tipoUsuaria, setTipoUsuaria] = useState('');
@@ -40,13 +30,13 @@ export default function App({route}) {
   var nomepassado = route.params?.nomepassado;
   var emailpassado = route.params?.emailpassado;
   var tipousuariapassado = route.params?.tipousuariapassado;
-  var tipologin = route.params?.tipologin;
+  var tipoLoginPassado = route.params?.tipologin;
 
 
     useEffect(() => {
         BackHandler.addEventListener('hardwareBackPress', () => {
-            navigation.goBack();
-            return true;
+            navigation.navigate("Cadastro-Pt1")
+        
         });
     }, []);
 
@@ -67,12 +57,9 @@ export default function App({route}) {
               nomepassado: nomepassado,
               emailpassado: emailpassado,
               tipousuariapassado: tipousuariapassado,
-              tipologin: tipologin,
-              assinante: false,
-              plano: 'free'
+              plano: 'free',
+              tipoLoginPassado: tipoLoginPassado
             });
-
-
 
           }}
           style={styles.naosei}>
@@ -116,8 +103,6 @@ export default function App({route}) {
               nomepassado: nomepassado,
               emailpassado: emailpassado,
               tipousuariapassado: tipousuariapassado,
-              tipologin: tipologin,
-              assinante: true,
               plano: 'Light'
             });
           }}
@@ -158,8 +143,6 @@ export default function App({route}) {
               nomepassado: nomepassado,
               emailpassado: emailpassado,
               tipousuariapassado: tipousuariapassado,
-              tipologin: tipologin,
-              assinante: true,
               plano: 'Pro'
             });
 
@@ -201,8 +184,6 @@ export default function App({route}) {
               nomepassado: nomepassado,
               emailpassado: emailpassado,
               tipousuariapassado: tipousuariapassado,
-              tipologin: tipologin,
-              assinante: true,
               plano: 'Premium'
             });
 

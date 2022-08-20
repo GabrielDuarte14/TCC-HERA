@@ -10,6 +10,7 @@ import {
   ScrollView,
 } from 'react-native';
 import cepP from 'cep-promise';
+import { BackHandler } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import DatePicker from 'react-native-date-picker';
 import {Modalize} from 'react-native-modalize';
@@ -23,11 +24,10 @@ import Pesquisar from '../../../assets/pesquisar.svg';
 
 export default function AtualizarDadosOpções({route}) {
   const navigation = useNavigation();
-
+  var nomeS;
 
   const opção = route.params?.opçãoAtualizar;
   const [nome, setNome] = useState('');
-
   const [dtNascimento, setDtNascimento] = useState(new Date());
   const [cpf, setCpf] = useState('');
   const [email, setEmail] = useState('');
@@ -56,6 +56,10 @@ export default function AtualizarDadosOpções({route}) {
   var dataMinima = new Date(dataAtual);
 
   useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', () => {
+    navigation.goBack();
+  
+    });
     (async () => {
       const user = firebase.auth().currentUser;
       const useremail = user.email;
@@ -65,7 +69,7 @@ export default function AtualizarDadosOpções({route}) {
         .get()
         .then(function (querySnapshot) {
           querySnapshot.forEach(function (doc) {
-            setNome(doc.data().nome);
+           setNome(doc.data().nome);
             setDataFinal(doc.data().datanascimento);
             setCpf(doc.data().cpf);
             setEmail(doc.data().email);
@@ -89,6 +93,7 @@ export default function AtualizarDadosOpções({route}) {
         .then(function (querySnapshot) {
           querySnapshot.forEach(function (doc) {
             setNome(doc.data().nome);
+     
             setDataFinal(doc.data().datanascimento);
             setCpf(doc.data().cpf);
             setEmail(doc.data().email);
@@ -104,7 +109,8 @@ export default function AtualizarDadosOpções({route}) {
           });
         });
     })();
-  }, []);
+  
+  },[]);
 
   function pesquisar() {
     cepP(cep)
@@ -210,7 +216,7 @@ export default function AtualizarDadosOpções({route}) {
   //dados da conta
   //referencia input nome
   const nomeRef = useRef();
-  if (opção == 1 && nome != '') {
+  if (opção == 1) {
     return (
       <SafeAreaView style={styles.container}>
         <Text style={styles.title}>Atualizar Dados</Text>
@@ -219,16 +225,8 @@ export default function AtualizarDadosOpções({route}) {
             <Text style={styles.label}>Nome</Text>
             <TextInput
               style={styles.input}
-              ref={nomeRef}
-              onChangeText={newText => {
-                
-                if(newText == ''){
-                  nomeRef.current.value = ""
-                }else{
-                  setNome(newText)
-                }
-              }}
-              value={nome}
+              onChangeText={setNome}
+              value = {nome}
               placeholder="Nome"
             />
           </View>

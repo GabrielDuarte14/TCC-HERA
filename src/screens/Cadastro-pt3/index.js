@@ -54,7 +54,6 @@ export default function App({route}) {
     var tipologin = route.params
         ?.tipologin;
     var plano = route.params?.plano;
-    var assinante = route.params?.assinante;
 
     useEffect(() => {
         BackHandler.addEventListener('hardwareBackPress', () => {
@@ -73,7 +72,7 @@ export default function App({route}) {
     const [bairro,
         setBairro] = useState('');
     const [complemento,
-        setComplemento] = useState('');
+        setComplemento] = useState('nulo');
     const [cidade,
         setCidade] = useState('');
     const [estado,
@@ -123,7 +122,6 @@ export default function App({route}) {
                         cidade: cidade,
                         estado: estado,
                         tipousuaria: tipousuaria,
-                        assinante: assinante,
                         idtelegram: '0'
                     })
                     .then(() => {
@@ -180,7 +178,6 @@ export default function App({route}) {
                             cidade: cidade,
                             estado: estado,
                             tipousuaria: tipousuaria,
-                            assinante: assinante,
                             plano: plano,
                             idtelegram: '0'
                         })
@@ -224,7 +221,7 @@ export default function App({route}) {
 
                
             }
-            if (tipologin != 'google') {
+            if (tipologin != 'Google') {
             firebase
             .auth()
             .createUserWithEmailAndPassword(email, senha)

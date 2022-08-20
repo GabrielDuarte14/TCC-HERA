@@ -47,15 +47,13 @@ export default function App({route}) {
   var email = route.params?.emailpassado;
   var cpf = route.params?.cpfpassado;
   var tipousuaria = route.params?.tipousuariapassado;
-  var tipologin = route.params?.tipologin;
   var cpfUsuaria = route.params?.cpfUsuaria;
-  var assinante = route.params?.assinante;
   var plano = route.params?.plano;
+  var tipologin = route.params?.tipoLoginPassado;
 
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', () => {
-      navigation.navigate('Cadastro-pt1');
-      return true;
+      navigation.goBack();
     });
   }, []);
 
@@ -293,8 +291,17 @@ export default function App({route}) {
 
       <Text style={styles.title}>Cadastro</Text>
       <Text style={styles.subtitle}>Dados da conta</Text>
-
+      <Text style={{
+        marginTop: 15,
+        fontFamily: "Roboto",
+        fontSize: 18,
+        color: "#6A6767",
+        fontWeight: "600"
+      }}>
+                Insira a sua data de Nascimento
+      </Text>
       <View style={styles.input}>
+        
         <DataNascimento />
         <Text
           style={styles.dtF}
@@ -323,11 +330,12 @@ export default function App({route}) {
               justifyContent: 'center',
               position: 'absolute',
             }}>
+             
             <DatePicker
               style={{
                 marginTop: 15,
                 marginLeft: 50,
-                color: '#000',
+                
               }}
               date={dtNasc}
               onDateChange={setDtNasc}
@@ -347,7 +355,15 @@ export default function App({route}) {
           </View>
         }
       />
-
+<Text style={{
+        marginTop: 15,
+        fontFamily: "Roboto",
+        fontSize: 18,
+        color: "#6A6767",
+        fontWeight: "600"
+      }}>
+                Insira seu telefone
+      </Text>
       <View style={styles.input}>
         <Telefone />
         <TextInput
@@ -363,7 +379,7 @@ export default function App({route}) {
           placeholder="Telefone"
         />
       </View>
-      {tipologin == 'normal' ? (
+      {tipologin != 'Google' ? (
         <>
           <View style={styles.input}>
             <Senha />
@@ -428,12 +444,12 @@ export default function App({route}) {
     console.log('dt ' + dtNasc);
     console.log('dt ' + telefone);
     console.log('dt ' + tipologin);
-    if (tipologin == 'google') {
+    if (tipologin == 'Google') {
       setSenha('google');
       setConfirmaSenha('google');
     }
     if (
-      (dtNasc != 0 && telefone.length > 0 && tipologin == 'google') ||
+      (dtNasc != 0 && telefone.length > 0 && tipologin == 'Google') ||
       (dtNasc != 0 &&
         telefone.length > 0 &&
         senha.length > 0 &&
@@ -456,7 +472,6 @@ export default function App({route}) {
             tipousuariapassado: tipousuaria,
             cpfUsuaria: cpfUsuaria,
             tipologin: tipologin,
-            assinante: assinante,
             plano: plano,
           });
         }

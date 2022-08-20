@@ -9,24 +9,18 @@ import {cpfMask} from '../../components/CpfMask';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import {RadioButton} from 'react-native-paper';
 import {
-  StyleSheet,
   Text,
   View,
   SafeAreaView,
   TouchableOpacity,
   TextInput,
-  Alert,
-  AccessibilityPropsIOS,
   BackHandler,
 } from 'react-native';
-import Mask from '@buuhv/number-mask';
-import CheckBox from '@react-native-community/checkbox';
 import styles from './styles';
 import {useNavigation} from '@react-navigation/native';
-import Dialog from 'react-native-dialog';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faCircle} from '@fortawesome/free-solid-svg-icons';
-import {color} from 'react-native-reanimated';
+
 
 export default function App({route}) {
   const navigation = useNavigation();
@@ -45,22 +39,6 @@ export default function App({route}) {
 
   var tipoUsuariaD = 'null';
 
-  useEffect(() => {
-    BackHandler.addEventListener('hardwareBackPress', () => {
-      navigation.navigate('Login');
-      return true;
-    });
-    (async()=>{
-    await setEmail(route.params?.email);
-    await setNome(route.params?.name);
-  })();
-  }, []);
-
-  const handleCancel = () => {
-    setVisible(false);
-    setVisible2(false);
-  };
-
   const [alertErro, setAlertErro] = useState(false);
   const [alertSucesso, setAlertSucesso] = useState(false);
   const [alertAviso, setAlertAviso] = useState(false);
@@ -68,6 +46,21 @@ export default function App({route}) {
   const [alertTipoPerfil, setAlertTipoPerfil] = useState(false);
   const [alertCamposInvalidos, setAlertCamposInvalidos] = useState(false);
   const [nomeUsuaria, setNomeUsuaria] = useState('');
+  
+  
+ 
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      navigation.navigate('Login');
+  
+    });
+    if(route.params?.name != undefined){
+      setNomeUsuaria(route.params?.name);
+      setEmail(route.params?.email);
+    }
+    
+  }, []);
 
   const showAlert = x => {
     if (x == 1) setAlertSucesso(true);
@@ -85,16 +78,17 @@ export default function App({route}) {
     if (x == 5) setAlertCamposInvalidos(false);
     if (x == 6) setAlertAviso2(false);
   };
-var tipo = '';
+  var tipo = '';
+ 
   function confirmar() {
     proximo();
-
+    
     setVisible(false);
     setVisible2(false);
   }
   async function proximo() {
     if (
-      nome == '' ||
+      nomeUsuaria == '' ||
       cpf.length == '' ||
       email.length == '' ||
       (!anjoGuarda && !usuaria)
@@ -110,10 +104,9 @@ var tipo = '';
         .replace(' ', '');
       const cpfFinal = parseFloat(cpfsempontos);
 
-      //IF de Validação de CPF
       if (validacpf(cpfFinal)) {
         console.log(typelogin);
-        if (nome.length > 2 && email.length > 8) {
+        if (nomeUsuaria.length > 2 && email.length > 8) {
           if (
             email.includes('@') &&
             email.includes('.com') &&
@@ -154,7 +147,7 @@ var tipo = '';
               tipoUsuariaD = 'USUÁRIA';
               navigation.navigate('PlanosHera', {
                 cpfpassado: cpf,
-                nomepassado: nome,
+                nomepassado: nomeUsuaria,
                 emailpassado: email,
                 tipousuariapassado: tipoUsuariaD,
                 tipologin: typelogin,
@@ -163,9 +156,12 @@ var tipo = '';
               showAlert(3);
             }
           } else {
+             
             showAlert(3);
           }
         } else {
+          console.log(`${usuaria} da usuario e ${anjoGuarda}`)
+             
           showAlert(3);
         }
       } else {
@@ -454,7 +450,7 @@ var tipo = '';
         <TextInput
           style={styles.login}
           placeholderTextColor="#C8CCCF"
-          value={route.params?.name}
+          value={nomeUsuaria}
           onChangeText={text => {
             setNome(text);
           }}
@@ -480,7 +476,7 @@ var tipo = '';
       <View style={styles.input}>
         <Email />
         <TextInput
-          value={route.params?.email}
+          value={email}
           style={styles.login}
           placeholderTextColor="#C8CCCF"
           onChangeText={text => {
