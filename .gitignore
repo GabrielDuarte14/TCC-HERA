@@ -58,7 +58,7 @@ buck-out
 .watchmanconfig
 
 # Android
-
+android/app/build
 
 # Node
 node_modules
