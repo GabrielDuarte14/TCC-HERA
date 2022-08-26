@@ -1,7 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="284" height="22" viewBox="0 0 284 22">
-  <g id="Grupo_34" data-name="Grupo 34" transform="translate(-46.5 -596)">
-    <line id="Linha_4" data-name="Linha 4" x2="284" transform="translate(46.5 607.5)" fill="none" stroke="#707070" stroke-width="1"/>
-    <rect id="Retângulo_9" data-name="Retângulo 9" width="46" height="14" transform="translate(162 601)" fill="#fff"/>
-    <text id="ou" transform="translate(175 613)" fill="#6a6767" font-size="18" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">ou</tspan></text>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="284" height="22" viewBox="0 0 284 22"><g id="Grupo_34" data-name="Grupo 34" transform="translate(-46.5 -596)"><line id="Linha_4" x2="284" fill="none" stroke="#707070" stroke-width="1" data-name="Linha 4" transform="translate(46.5 607.5)"/><rect id="Retângulo_9" width="46" height="14" fill="#fff" data-name="Retângulo 9" transform="translate(162 601)"/><text id="ou" fill="#6a6767" font-family="Roboto-Regular, Roboto" font-size="18" transform="translate(175 613)"><tspan x="0" y="0">ou</tspan></text></g></svg>
